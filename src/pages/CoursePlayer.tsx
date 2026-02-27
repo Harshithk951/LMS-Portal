@@ -5,6 +5,8 @@ import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Captions, Hand, F
 import { courses, sampleLessons, sampleCaptions, quizQuestions } from '../data/courses';
 import { useUser } from '../contexts/UserContext';
 import { useVoice } from '../contexts/VoiceContext';
+import SignInterpreter from '../components/SignInterpreter/SignInterpreter';
+import '../components/SignInterpreter/SignInterpreter.css';
 import './CoursePlayer.css';
 
 export default function CoursePlayer() {
@@ -19,6 +21,7 @@ export default function CoursePlayer() {
     const [showCaptions, setShowCaptions] = useState(true);
     const [showTranscript, setShowTranscript] = useState(true);
     const [showSignLanguage, setShowSignLanguage] = useState(false);
+    const [recognizedSign, setRecognizedSign] = useState('');
     const [playbackSpeed, setPlaybackSpeed] = useState(1);
     const [captionIndex, setCaptionIndex] = useState(0);
     const [showQuiz, setShowQuiz] = useState(false);
@@ -196,6 +199,20 @@ export default function CoursePlayer() {
                     <div className="player-shortcuts card">
                         <Keyboard size={16} /> <strong>Shortcuts:</strong> Space=Play/Pause · ←→=Seek · C=Captions · T=Transcript · S=Sign Language · M=Mute
                     </div>
+
+                    {showSignLanguage && (
+                        <div style={{ marginTop: 12 }}>
+                            <SignInterpreter
+                                enabled={showSignLanguage}
+                                onRecognized={(text) => setRecognizedSign(text)}
+                            />
+                            {recognizedSign && (
+                                <div className="card" style={{ marginTop: 12 }} aria-live="polite">
+                                    Recognized: <strong>{recognizedSign}</strong>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     {showTranscript && (
                         <motion.section className="card transcript-panel" initial={{ opacity: 0 }} animate={{ opacity: 1 }} aria-label="Transcript">

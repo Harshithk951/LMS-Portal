@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Accessibility, Ear, Hand, Brain } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
+import FaceUnlock from '../components/FaceUnlock/FaceUnlock';
+import '../components/FaceUnlock/FaceUnlock.css';
 import './Login.css';
 
 const demoAccounts = [
@@ -16,6 +18,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
+    const [showFaceUnlock, setShowFaceUnlock] = useState(false);
     const { login } = useUser();
     const navigate = useNavigate();
 
@@ -27,6 +30,12 @@ export default function Login() {
 
     const quickLogin = (demoEmail: string) => {
         login(demoEmail);
+        navigate('/dashboard');
+    };
+
+    const handleFaceUnlocked = () => {
+        // This app uses demo auth; we log in the provided email (or default demo) after a face is detected.
+        login(email || 'demo-blind@test.com');
         navigate('/dashboard');
     };
 
@@ -67,6 +76,21 @@ export default function Login() {
                     <button type="submit" className="btn btn-primary w-full">
                         Sign In <ArrowRight size={18} />
                     </button>
+
+                    <button
+                        type="button"
+                        className={`btn w-full ${showFaceUnlock ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setShowFaceUnlock(v => !v)}
+                        aria-pressed={showFaceUnlock}
+                        aria-label="Toggle face unlock"
+                        style={{ marginTop: 10 }}
+                    >
+                        Face Unlock
+                    </button>
+
+                    {showFaceUnlock && (
+                        <FaceUnlock enabled={showFaceUnlock} onUnlocked={handleFaceUnlocked} />
+                    )}
                 </form>
 
                 <div className="divider"><span>or try a demo account</span></div>
