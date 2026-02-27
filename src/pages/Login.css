@@ -1,7 +1,7 @@
 .login-page {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     position: relative;
     padding: clamp(var(--space-4), 4vw, var(--space-8));
@@ -47,9 +47,7 @@
     padding: var(--space-10);
     position: relative;
     z-index: 1;
-    margin: var(--space-8) 0;
-    max-height: calc(100vh - 2 * var(--space-6));
-    overflow: auto;
+    margin: var(--space-6) 0;
 }
 
 .login-header {
@@ -138,15 +136,16 @@
 @media (max-width: 640px) {
     .login-card {
         padding: var(--space-7);
-        max-height: none;
-    }
-    .login-page {
-        align-items: flex-start;
     }
 }
 
-@media (min-height: 760px) {
+@media (max-height: 760px) {
     .login-page {
-        align-items: center;
+        align-items: flex-start;
+        padding-top: var(--space-5);
+        padding-bottom: var(--space-5);
+    }
+    .login-card {
+        margin: var(--space-4) 0;
     }
 }
