@@ -1,10 +1,11 @@
 .login-page {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: relative;
-    padding: var(--space-8);
+    padding: clamp(var(--space-4), 4vw, var(--space-8));
+    overflow-y: auto;
 }
 
 .login-bg {
@@ -46,6 +47,9 @@
     padding: var(--space-10);
     position: relative;
     z-index: 1;
+    margin: var(--space-8) 0;
+    max-height: calc(100vh - 2 * var(--space-6));
+    overflow: auto;
 }
 
 .login-header {
@@ -129,4 +133,20 @@
 
 .demo-icon {
     font-size: var(--fs-xl);
+}
+
+@media (max-width: 640px) {
+    .login-card {
+        padding: var(--space-7);
+        max-height: none;
+    }
+    .login-page {
+        align-items: flex-start;
+    }
+}
+
+@media (min-height: 760px) {
+    .login-page {
+        align-items: center;
+    }
 }
