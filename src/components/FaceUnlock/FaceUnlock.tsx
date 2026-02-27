@@ -43,9 +43,28 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
   }, [onUnlocked]);
 
   useEffect(() => {
-    if (!enabled) return;
-
     let disposed = false;
+
+    if (!enabled) {
+      // Ensure any lingering tracks are stopped when toggled off.
+      try {
+        cameraRef.current?.stop();
+      } catch {
+        /* ignore */
+      }
+      cameraRef.current = null;
+      try {
+        faceRef.current?.close();
+      } catch {
+        /* ignore */
+      }
+      faceRef.current = null;
+      const videoEl = videoRef.current;
+      const stream = videoEl?.srcObject as MediaStream | null;
+      if (stream) stream.getTracks().forEach((t) => t.stop());
+      if (videoEl) videoEl.srcObject = null;
+      return;
+    }
 
     const stopAll = () => {
       try {
@@ -132,6 +151,7 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
           if (stable && !unlockedRef.current) {
             unlockedRef.current = true;
             setStatus("Unlocked");
+            disposed = true; // stop further processing
             stopAll();
             onUnlockedRef.current();
           }
