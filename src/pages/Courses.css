@@ -1,0 +1,122 @@
+.courses-page {
+    padding: var(--space-8) var(--space-6);
+}
+
+.courses-header {
+    margin-bottom: var(--space-8);
+}
+
+.courses-header h1 {
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.courses-header p {
+    color: var(--text-secondary);
+}
+
+.courses-filters {
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.search-wrapper {
+    max-width: 400px;
+}
+
+.category-pills {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-6);
+}
+
+.course-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--space-5);
+}
+
+.course-card:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-thumb-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.course-thumb {
+    font-size: var(--fs-4xl);
+}
+
+.course-title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--text-primary);
+}
+
+.course-instructor {
+    font-size: var(--fs-sm);
+    color: var(--accent);
+    font-weight: var(--fw-medium);
+}
+
+.course-desc {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+.course-meta {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+}
+
+.course-meta span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.course-a11y-badges {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.course-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+    font-weight: var(--fw-medium);
+}
+
+.course-progress .xp-bar-container {
+    flex: 1;
+}
+
+.courses-empty {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--text-secondary);
+}

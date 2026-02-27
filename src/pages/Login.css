@@ -1,0 +1,132 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: var(--space-8);
+}
+
+.login-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.login-page .hero-orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent);
+    top: -100px;
+    right: -50px;
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    animation: float 8s ease infinite;
+}
+
+.login-page .hero-orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #ffffff;
+    bottom: -50px;
+    left: -50px;
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float 10s ease infinite reverse;
+}
+
+.login-card {
+    max-width: 440px;
+    width: 100%;
+    padding: var(--space-10);
+    position: relative;
+    z-index: 1;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+.login-header h1 {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    margin: var(--space-4) 0 var(--space-2);
+    color: var(--text-primary);
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-tertiary);
+    pointer-events: none;
+}
+
+.input-with-icon {
+    padding-left: 40px;
+}
+
+.pass-toggle {
+    position: absolute;
+    right: 4px;
+    color: var(--text-tertiary);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    color: var(--text-tertiary);
+    font-size: var(--fs-sm);
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.demo-accounts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.demo-btn {
+    justify-content: flex-start;
+    gap: var(--space-3);
+}
+
+.demo-icon {
+    font-size: var(--fs-xl);
+}
