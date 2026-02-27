@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Mic, MicOff, Settings, LogOut, Trophy, BookOpen, Home, Sparkles, User, Accessibility } from 'lucide-react';
+import { Menu, X, Mic, MicOff, Settings, LogOut, Trophy, BookOpen, Home, Sparkles, User, Accessibility, Sun, Moon } from 'lucide-react';
 import Icon from '../Icon';
 import { useState } from 'react';
 import { useUser } from '../../contexts/UserContext';
 import { useVoice } from '../../contexts/VoiceContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { getLevelFromXP } from '../../data/badges';
 import './Navbar.css';
 
@@ -12,8 +13,11 @@ export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const { user, logout } = useUser();
     const { isListening, toggleListening, isSupported, feedback, micLevel } = useVoice();
+    const { config, setTheme } = useTheme();
     const location = useLocation();
     const level = getLevelFromXP(user.xp);
+    const isDark = config.theme === 'dark' || config.theme === 'high-contrast-dark';
+    const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');
 
     const navLinks = [
         { to: '/', label: 'Home', icon: <Home size={18} /> },
@@ -58,6 +62,10 @@ export default function Navbar() {
                             )}
                         </div>
                     )}
+
+                    <button className="btn btn-icon" onClick={toggleTheme} aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'} title="Toggle theme">
+                        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                    </button>
 
                     <Link to="/settings" className="btn btn-icon" aria-label="Accessibility Settings" title="Settings">
                         <Settings size={20} />
