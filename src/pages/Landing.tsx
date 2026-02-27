@@ -31,7 +31,6 @@ export default function Landing() {
                 <div className="container hero-content">
                     <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <span className="hero-badge badge badge-accent">
-                            <Sparkles size={14} /> InclusiveLMS
                         </span>
                     </motion.div>
                     <motion.h1 id="hero-heading" className="hero-title" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
