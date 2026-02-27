@@ -33,21 +33,27 @@ It supports voice-driven navigation, AI-assisted learning content, adaptive sett
 
 ---
 
-## 🎬 Demo Animations
-
-> Add your real GIFs in `public/demo/` and keep these paths.
+## 📸 Screenshots
 
 <p align="center">
-  <img src="./public/demo/landing.gif" alt="Landing demo" width="90%" />
+  <img src="./public/demo/landing.png" alt="Landing" width="90%" />
 </p>
 
 <p align="center">
-  <img src="./public/demo/voice-commands.gif" alt="Voice commands demo" width="90%" />
+  <img src="./public/demo/courses.png" alt="Courses" width="90%" />
 </p>
 
 <p align="center">
-  <img src="./public/demo/course-player.gif" alt="Course player demo" width="90%" />
+  <img src="./public/demo/course-player.png" alt="Course Player" width="90%" />
 </p>
+
+## 🖼️ Image Asset Paths
+
+- `public/demo/landing.png`
+- `public/demo/courses.png`
+- `public/demo/course-player.png`
+- `public/vite.svg`
+- `src/assets/react.svg`
 
 ---
 
@@ -131,9 +137,9 @@ Open: `http://localhost:5173`
 
 ## 🤝 Contributing
 
-1. Fork the repo  
-2. Create a feature branch  
-3. Commit changes  
+1. Fork the repo
+2. Create a feature branch
+3. Commit changes
 4. Open a Pull Request
 
 ---
