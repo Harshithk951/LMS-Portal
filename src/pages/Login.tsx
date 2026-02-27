@@ -35,6 +35,7 @@ export default function Login() {
 
     const handleFaceUnlocked = () => {
         // This app uses demo auth; we log in the provided email (or default demo) after a face is detected.
+        setShowFaceUnlock(false);
         login(email || 'demo-blind@test.com');
         navigate('/dashboard');
     };

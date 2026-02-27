@@ -7,12 +7,6 @@ type Props = {
   onUnlocked: () => void;
 };
 
-function mode(values: boolean[]): boolean {
-  let trueCount = 0;
-  for (const v of values) if (v) trueCount += 1;
-  return trueCount >= Math.ceil(values.length / 2);
-}
-
 function getErrorName(error: unknown): string {
   if (error instanceof Error) return error.name;
   if (typeof error === "object" && error !== null && "name" in error) {
@@ -34,8 +28,7 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
   const [facePresent, setFacePresent] = useState(false);
 
   const onUnlockedRef = useRef(onUnlocked);
-  const windowRef = useRef<boolean[]>([]);
-  const stableRef = useRef<boolean>(false);
+  const stableCountRef = useRef<number>(0);
   const unlockedRef = useRef<boolean>(false);
   const facePresentRef = useRef<boolean>(false);
   const fatalErrorRef = useRef<boolean>(false);
@@ -53,6 +46,27 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
     if (!enabled) return;
 
     let disposed = false;
+
+    const stopAll = () => {
+      try {
+        cameraRef.current?.stop();
+      } catch {
+        /* ignore */
+      }
+      cameraRef.current = null;
+
+      try {
+        faceRef.current?.close();
+      } catch {
+        /* ignore */
+      }
+      faceRef.current = null;
+
+      const videoEl = videoRef.current;
+      const stream = videoEl?.srcObject as MediaStream | null;
+      if (stream) stream.getTracks().forEach((t) => t.stop());
+      if (videoEl) videoEl.srcObject = null;
+    };
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -106,16 +120,19 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
             ctx.strokeRect(xMin, yMin, box.width * w, box.height * h);
           }
 
-          // Smooth face presence over last frames
-          const window = windowRef.current;
-          window.push(hasFace);
-          if (window.length > 10) window.shift();
+          // Require a short burst of consecutive detections to unlock
+          if (hasFace) {
+            stableCountRef.current += 1;
+          } else {
+            stableCountRef.current = 0;
+          }
 
-          const stable = window.length >= 6 ? mode(window.slice(-6)) : false;
-          stableRef.current = stable;
+          const stable = stableCountRef.current >= 2; // ~2 frames of presence
 
           if (stable && !unlockedRef.current) {
             unlockedRef.current = true;
+            setStatus("Unlocked");
+            stopAll();
             onUnlockedRef.current();
           }
 
@@ -164,26 +181,9 @@ export default function FaceUnlock({ enabled, onUnlocked }: Props) {
     return () => {
       disposed = true;
 
-      try {
-        cameraRef.current?.stop();
-      } catch {
-        // ignore
-      }
-      cameraRef.current = null;
+      stopAll();
 
-      try {
-        faceRef.current?.close();
-      } catch {
-        // ignore
-      }
-      faceRef.current = null;
-
-      const stream = video.srcObject as MediaStream | null;
-      if (stream) stream.getTracks().forEach((t) => t.stop());
-      video.srcObject = null;
-
-      windowRef.current = [];
-      stableRef.current = false;
+      stableCountRef.current = 0;
       unlockedRef.current = false;
       facePresentRef.current = false;
       fatalErrorRef.current = false;
