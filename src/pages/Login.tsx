@@ -215,13 +215,13 @@ export default function Login() {
                                     <button type="button" className="btn btn-secondary btn-sm" onClick={handleRegisterTouchId}>
                                         {touchRegistered ? 'Re-register' : 'Enable Touch ID'}
                                     </button>
-                                    <button type="button" className="btn btn-primary btn-sm" onClick={handleTouchIdLogin}>
+                                    <button type="button" className="btn btn-primary btn-sm" style={{ fontSize: 11, padding: '4px 10px' }} onClick={handleTouchIdLogin}>
                                         Sign in with Touch ID
                                     </button>
                                 </div>
                             </div>
                             {touchMessage && (
-                                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--text-secondary)' }}>{touchMessage}</div>
+                                <div style={{ marginTop: 8, fontSize: 6, color: 'var(--text-secondary)' }}>{touchMessage}</div>
                             )}
                         </div>
                     ) : (
