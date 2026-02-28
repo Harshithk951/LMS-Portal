@@ -163,6 +163,19 @@
     font-size: var(--fs-xs);
 }
 
+.speed-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    pointer-events: none;
+}
+
 .player-shortcuts {
     display: flex;
     align-items: center;

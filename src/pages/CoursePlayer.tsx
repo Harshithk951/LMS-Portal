@@ -110,7 +110,7 @@ export default function CoursePlayer() {
 
     useEffect(() => {
         const handleKey = (e: KeyboardEvent) => {
-            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) return;
             switch (e.key) {
                 case ' ': e.preventDefault(); setIsPlaying(p => !p); break;
                 case 'c': case 'C': setShowCaptions(p => !p); break;
@@ -151,6 +151,7 @@ export default function CoursePlayer() {
                             <span className="player-video-emoji">{course.thumbnail}</span>
                             <span className="player-video-lesson">{lessons[currentLesson]?.title}</span>
                             {isPlaying && <div className="player-playing-indicator"><span /><span /><span /><span /></div>}
+                            {playbackSpeed !== 1 && <span className="speed-badge">{playbackSpeed}x</span>}
                         </div>
 
                         {showSignLanguage && (
