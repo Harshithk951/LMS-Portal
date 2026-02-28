@@ -15,9 +15,8 @@ export default function Navbar() {
     const { isListening, toggleListening, isSupported, feedback, micLevel } = useVoice();
     const { config, setTheme } = useTheme();
     const location = useLocation();
+    const isDark = config.theme === 'dark' || config.theme.startsWith('high-contrast-dark');
     const level = getLevelFromXP(user.xp);
-    const isDark = config.theme === 'dark' || config.theme === 'high-contrast-dark';
-    const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');
 
     const navLinks = [
         { to: '/', label: 'Home', icon: <Home size={18} /> },
@@ -63,7 +62,12 @@ export default function Navbar() {
                         </div>
                     )}
 
-                    <button className="btn btn-icon" onClick={toggleTheme} aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'} title="Toggle theme">
+                    <button
+                        className="btn btn-icon theme-toggle-btn"
+                        onClick={() => setTheme(isDark ? 'light' : 'dark')}
+                        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                        title={isDark ? 'Light mode' : 'Dark mode'}
+                    >
                         {isDark ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
 

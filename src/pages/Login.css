@@ -1,10 +1,10 @@
 .login-page {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    padding: 24px 16px;
-    box-sizing: border-box;
+    padding: var(--space-8);
 }
 
 .login-bg {
@@ -43,10 +43,9 @@
 .login-card {
     max-width: 440px;
     width: 100%;
-    padding: var(--space-8);
+    padding: var(--space-10);
     position: relative;
     z-index: 1;
-    margin: auto;
 }
 
 .login-header {
@@ -130,10 +129,4 @@
 
 .demo-icon {
     font-size: var(--fs-xl);
-}
-
-@media (max-width: 640px) {
-    .login-card {
-        padding: var(--space-6);
-    }
 }

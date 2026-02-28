@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion';
-import { Type, AlignJustify, Zap, Monitor, Mic, Eye, Accessibility } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { Palette, Type, AlignJustify, Zap, Monitor, Mic, Eye, Accessibility } from 'lucide-react';
+import { useTheme, type ThemeName } from '../contexts/ThemeContext';
 import './Settings.css';
 
+const themeColors: Record<ThemeName, string[]> = {
+    'dark': ['#0a0a1a', '#6C3BF4', '#f0f0ff'],
+    'light': ['#f8f9fc', '#6C3BF4', '#1a1a2e'],
+    'high-contrast-dark': ['#000000', '#ffff00', '#ffffff'],
+    'high-contrast-light': ['#ffffff', '#0000cc', '#000000'],
+    'dyslexia': ['#fdf6e3', '#e76f51', '#264653'],
+    'colorblind-deut': ['#0f1729', '#0072B2', '#f0f4ff'],
+    'colorblind-prot': ['#0f1520', '#56B4E9', '#f0f4ff'],
+    'low-vision': ['#1a1a2e', '#ffc800', '#ffffff'],
+};
+
 export default function Settings() {
-    const { config, setFontSize, setLineSpacing, setReduceMotion, setScreenReaderMode } = useTheme();
+    const { config, setTheme, setFontSize, setLineSpacing, setReduceMotion, setScreenReaderMode, themes } = useTheme();
 
     return (
         <main className="settings-page container" role="main" aria-labelledby="settings-heading">
@@ -12,6 +23,23 @@ export default function Settings() {
                 <h1 id="settings-heading"><Accessibility size={24} /> Accessibility <span className="text-gradient">Settings</span></h1>
                 <p className="settings-subtitle">Customize your learning experience. All changes apply instantly.</p>
             </motion.div>
+
+            <section className="settings-section" aria-labelledby="theme-heading">
+                <h2 id="theme-heading"><Palette size={20} /> Theme</h2>
+                <div className="theme-grid">
+                    {themes.map(t => (
+                        <button key={t.id} className={`card theme-card ${config.theme === t.id ? 'active' : ''}`} onClick={() => setTheme(t.id)} aria-label={`${t.name} theme: ${t.description}`} aria-pressed={config.theme === t.id}>
+                            <div className="theme-preview">
+                                {themeColors[t.id]?.map((c, i) => (
+                                    <span key={i} className="theme-swatch" style={{ background: c }} />
+                                ))}
+                            </div>
+                            <span className="theme-name">{t.name}</span>
+                            <span className="theme-desc">{t.description}</span>
+                        </button>
+                    ))}
+                </div>
+            </section>
 
             <section className="settings-section" aria-labelledby="typography-heading">
                 <h2 id="typography-heading"><Type size={20} /> Typography</h2>

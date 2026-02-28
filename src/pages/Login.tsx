@@ -1,11 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Accessibility } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Accessibility, Ear, Hand, Brain } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import FaceUnlock from '../components/FaceUnlock/FaceUnlock';
 import '../components/FaceUnlock/FaceUnlock.css';
 import './Login.css';
+
+const demoAccounts = [
+    { email: 'demo-blind@test.com', pass: 'Demo2026!', label: 'Visual Impairment', icon: <Eye size={20} /> },
+    { email: 'demo-deaf@test.com', pass: 'Demo2026!', label: 'Hearing Impairment', icon: <Ear size={20} /> },
+    { email: 'demo-motor@test.com', pass: 'Demo2026!', label: 'Mobility Impairment', icon: <Hand size={20} /> },
+    { email: 'demo-cognitive@test.com', pass: 'Demo2026!', label: 'Cognitive Accessibility', icon: <Brain size={20} /> },
+];
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -63,6 +70,11 @@ export default function Login() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         login(email || 'demo-blind@test.com');
+        navigate('/dashboard');
+    };
+
+    const quickLogin = (demoEmail: string) => {
+        login(demoEmail);
         navigate('/dashboard');
     };
 
@@ -169,7 +181,7 @@ export default function Login() {
                             <Mail size={18} className="input-icon" />
                             <input id="email" type="email" className="input input-with-icon" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} aria-describedby="email-desc" />
                         </div>
-                        <span id="email-desc" className="sr-only">Enter your email address</span>
+                        <span id="email-desc" className="sr-only">Enter your email address or use a demo account below</span>
                     </div>
 
                     <div className="form-group">
@@ -230,6 +242,17 @@ export default function Login() {
                         </div>
                     )}
                 </form>
+
+                <div className="divider"><span>or try a demo account</span></div>
+
+                <div className="demo-accounts">
+                    {demoAccounts.map(acc => (
+                        <button key={acc.email} className="demo-btn btn btn-secondary" onClick={() => quickLogin(acc.email)} aria-label={`Quick login as ${acc.label} demo account`}>
+                            <span className="demo-icon">{acc.icon}</span>
+                            <span>{acc.label}</span>
+                        </button>
+                    ))}
+                </div>
             </motion.div>
         </main>
     );

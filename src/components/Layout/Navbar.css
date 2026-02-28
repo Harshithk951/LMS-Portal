@@ -162,6 +162,16 @@
     color: var(--text-primary);
 }
 
+.theme-toggle-btn {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    color: var(--accent);
+    transform: rotate(25deg);
+}
+
 .voice-feedback {
     position: fixed;
     top: 80px;
